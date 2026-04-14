@@ -1,5 +1,5 @@
 export const metadata = {
-	title: 'NEXUS-SOC | Incident #IR-2024-0309', // update this for due date
+	title: 'NEXUS-SOC | Incident #IR-2026-0420', // update this for due date
 	description: 'Security Operations Center — Active Incident'
 };
 

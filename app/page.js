@@ -47,6 +47,7 @@ export default function Home() {
 	const [hintsLeft, setHintsLeft] = useState(3);
 	const [hintVisible, setHintVisible] = useState(false);
 	const termRef = useRef(null);
+	const alertsRef = useRef(null);
 	const inputRef = useRef(null);
 	const stateRef = useRef({ stage: 1, fragments: [], attempts: 0 });
 
@@ -79,6 +80,14 @@ export default function Home() {
 			el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
 		});
 	}, [lines]);
+
+	useEffect(() => {
+		const el = alertsRef.current;
+		if (!el) return;
+		requestAnimationFrame(() => {
+			el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+		});
+	}, [visibleAlerts]);
 
 	function addLines(newLines) {
 		setLines((prev) => [...prev, ...newLines.filter(Boolean)]);
@@ -504,7 +513,7 @@ export default function Home() {
 						<span className={`${styles.dot} ${styles.dotR} ${styles.blink}`} />
 						<span className={styles.alertTitle}>ACTIVE INCIDENT — UNAUTHORIZED ENTITY DETECTED</span>
 					</div>
-					<div className={styles.alertsList}>
+					<div className={styles.alertsList} ref={alertsRef}>
 						{visibleAlerts.map((i) => (
 							<div key={i} className={`${styles.alertRow} ${styles.visible}`}>
 								<span className={styles.alertTime}>{ALERTS[i].time}</span>
